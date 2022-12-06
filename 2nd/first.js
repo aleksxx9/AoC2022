@@ -12,40 +12,33 @@ fetch('https://adventofcode.com/2022/day/2/input', {
 		const moves = data.split('\n');
 		let points = 0;
 
-		//a,x=rock/lose
-		//b,y=paper/draw
-		//c,z=scissors/win
+		const shapeValues = {
+			X: 1,
+			Y: 2,
+			Z: 3
+		}
+		//a,x=rock
+		//b,y=paper
+		//c,z=scissors
 
 		moves.forEach(outcome => {
+			if (!outcome) return null;
 			switch (outcome) {
+				case 'A Z':
 				case 'B X':
-					points += 1
-					break;
-				case 'C X':
-					points += 2
+				case 'C Y':
+					points += shapeValues[outcome[2]]
 					break;
 				case 'A X':
-					points += 3
-					break;
-				case 'A Y':
-					points += 4
-					break;
 				case 'B Y':
-					points += 5
-					break;
-				case 'C Y':
-					points += 6
-					break;
 				case 'C Z':
-					points += 7
+					points += 3 + shapeValues[outcome[2]]
 					break;
-				case 'A Z':
-					points += 8
-					break;
-				case 'B Z':
-					points += 9
+				default:
+					points += 6 + shapeValues[outcome[2]]
 					break;
 			}
 		});
+		
 		console.log(points)
 	});
